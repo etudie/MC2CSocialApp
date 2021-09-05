@@ -7,7 +7,7 @@ const config = require('config');
 const { check, validationResult } = require('express-validator/check');
 
 
-const User = require('../../models/user');
+const User = require('../../models/User');
 
 // @route POST api/users 
 // @desc Register user
@@ -63,14 +63,14 @@ router.post('/', [
 
             jwt.sign(
                 payload,
-                config.get('jwtTOken'),
+                config.get('jwtSecret'),
                 { expiresIn: 3600000 }, // TODO: Change when deploy to 3600 for seconds
                 (err, token) => {
                     if (err) throw err;
                     res.json({ token });
                 });
 
-            res.send('User registered');
+            // res.send('User registered');
         } catch (err) {
             console.error(err.message);
             res.status(500).send('Server error');
